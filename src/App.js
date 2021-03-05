@@ -1,17 +1,23 @@
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
 import News from './Components/News/News';
 
 function App() {
   const [articles, setArticles] = useState([]);
-  useEffect(() => {
+/*   useEffect(() => {
     const url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=6aff66dfacdf4af6bb4190f9ea54d647'
     fetch(url)
     .then(res => res.json())
     .then(data => setArticles(data.articles))
+  },[]) */ 
 
-  },[])
+  useEffect(() => {
+    const url = 'https://newsapi.org/v2/top-headlines?country=us&apiKey=6aff66dfacdf4af6bb4190f9ea54d647'
+    axios(url)
+    .then(data => setArticles(data.data.articles))
+  }, []);
   return (
     <div>
       <Button variant="contained">Default</Button>
@@ -29,3 +35,4 @@ function App() {
 }
 
 export default App;
+
